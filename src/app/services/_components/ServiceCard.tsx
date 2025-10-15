@@ -1,0 +1,68 @@
+import { Zap, BarChart3, MessageSquare, Award, DollarSign } from "lucide-react"
+import Image from "next/image"
+
+export default function ServiceCard() {
+    return (
+        <div className="w-full max-w-[496px] bg-white rounded-xl border-t-[3px]  border-[#147575] shadow-[0px_4px_6px_0px_#45B6CA1A]  overflow-hidden">
+            <div className="relative">
+                <Image
+                    src="/service.jpg"
+                    alt="Matthew Warkentin"
+                    width={392}
+                    height={200}
+                    className="w-full h-[304px] object-cover"
+                />
+                <div className="absolute top-4 left-4">
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-white text-sm font-medium text-gray-700">
+                        Level - 05
+                    </span>
+                </div>
+            </div>
+
+            <div className="py-4 px-6">
+                <h2 className="text-xl font-semibold text-[#147575] mb-2">Matthew Warkentin</h2>
+
+
+                <p className="text-[16px] text-[#929292] mb-6 leading-relaxed">
+                    Frontend developer with 5 years+ experience building web applications
+                </p>
+
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
+                        <Zap className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                        <span className="text-sm font-medium text-[#147575] ">Frontend, React, Vue</span>
+                    </div>
+
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
+                        <BarChart3 className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-700">Data Analysis</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
+                        <MessageSquare className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-700">Communication</span>
+                    </div>
+
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
+                        <Award className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-700">Level - 5</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1]  border border-[#E8F1F1] rounded-full mb-6 w-fit">
+                        <DollarSign className="w-4 h-4 text-teal-600 flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-700">$150/hrs</span>
+                    </div>
+                </div>
+
+
+                <div className="flex flex-col sm:flex-row gap-3 w-full">
+                    <button className="flex-1 px-6 py-2.5 border border-[#00383B] rounded-lg text-sm font-medium text-[#00383B] hover:bg-gray-50 transition-colors">
+                        See Profile
+                    </button>
+                    <button className="flex-1 px-6 py-2.5 bg-[#00383B] rounded-lg text-sm font-medium text-white hover:bg-teal-800 transition-colors">
+                        Add to My Team
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    )
+}

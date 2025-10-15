@@ -1,0 +1,32 @@
+import Hero from '@/components/Home/Hero'
+import React from 'react'
+import HandSelected from './_components/handSelected'
+import BestConsultant from './_components/BestConsultant'
+import ServiceCard from './_components/ServiceCard'
+import ServiceCta from './_components/ServiceCta'
+import ReadyToStart from '@/components/ReadyToStart'
+import AskQ from '../faqs/_components/AskQ'
+
+const page = () => {
+    return (
+        <div>
+            <Hero title1="Hire Excellence" colorTitile="Where Breakthroughs" title2="Begin" description="We connect companies with vetted engineering talent and cross-functional product teams—mechanical, electrical, firmware, software, data, and more—so you can build better products with less risk, lower cost, and faster timelines." image="/heroimage2.jpg" buttonName1="Assemble Your Team" buttonName2="Help Me Build My Team " buttonHref1="/" buttonHref2="/" />
+            <div className='container mx-auto px-4 md:px-0'>
+                <HandSelected />
+                <BestConsultant />
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
+                    {Array(10)
+                        .fill(0)
+                        .map((_, index) => (
+                            <ServiceCard key={index} />
+                        ))}
+                </div>
+                <ServiceCta />
+                <ReadyToStart />
+                <AskQ />
+            </div>
+        </div>
+    )
+}
+
+export default page
