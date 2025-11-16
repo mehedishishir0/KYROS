@@ -344,13 +344,13 @@ export default function PersonalInfo() {
     }, [profileData, form]);
 
     function onSubmit(values: FormValues) {
-        updateMutation.mutate({
-            firstName: values.firstName,
-            lastName: values.lastName,
-            phone: values.phoneNumber,
-            address: values.address,
-            designation: values.designation,
-        });
+        const formData = new FormData();
+        formData.append("firstName", values.firstName);
+        formData.append("lastName", values.lastName);
+        formData.append("phone", values.phoneNumber);
+        formData.append("location", values.address);
+        formData.append("professionTitle", values.designation);
+        updateMutation.mutate(formData);
     }
 
     if (isLoading) return <div className="p-4">Loading…</div>;

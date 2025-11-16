@@ -1,33 +1,31 @@
-import { ProfileUpdatePayload } from "@/types/userDataType";
 
-export async function updateProfileInfo(token: string, payload: ProfileUpdatePayload) {
-  const formData = new FormData();
-    formData.append("firstName", payload.firstName);
-    formData.append("lastName", payload.lastName);
-    // formData.append("email", payload.email);
-    formData.append("phone", payload.phone);
-    formData.append("location", payload.address);
-    formData.append("professionTitle", payload.designation);
+export async function updateProfileInfo(
+  token: string,
+  payload: FormData          
+) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/update-my-profile`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+       
+      },
+      body: payload,
+    }
+  )
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/update-my-profile`, {
-    method: "PUT",
-    headers: {
-
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
-
-  const resData = await response.json();
-  if (!response.ok) throw new Error(resData.message || "Failed to update profile");
-  return resData;
+  const resData = await response.json()
+  if (!response.ok) {
+    throw new Error(resData.message ?? 'Failed to update profile')
+  }
+  return resData
 }
-
 
 export async function updateAvatar(token: string, payload: { avatar: File }) {
   const formData = new FormData();
-  
-   formData.append("profileImage", payload.avatar);
+
+  formData.append("profileImage", payload.avatar);
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/update-my-profile`, {
     method: "PUT",

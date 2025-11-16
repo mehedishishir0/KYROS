@@ -8,7 +8,7 @@ import { BlogResponse, SingelBlogResponse } from "@/types/blog";
 import { FaqResponse } from "@/types/faq";
 import { IndustryResponse } from "@/types/ndustries";
 import { ServicesResponse } from "@/types/service";
-import { ProfileUpdatePayload, UserProfileResponse } from "@/types/userDataType";
+import {   UserProfileResponse } from "@/types/userDataType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { signOut } from "next-auth/react";
 import { toast } from "sonner";
@@ -72,7 +72,7 @@ export function useProfileInfoUpdate(token: string, onSuccessCallback?: () => vo
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (payload: ProfileUpdatePayload) => updateProfileInfo(token, payload),
+        mutationFn: (payload: FormData) => updateProfileInfo(token, payload),
         onSuccess: () => {
             toast.success("Profile updated successfully");
             queryClient.invalidateQueries({ queryKey: ["me"] });
@@ -83,6 +83,27 @@ export function useProfileInfoUpdate(token: string, onSuccessCallback?: () => vo
             else toast.error("Update failed");
         },
     });
+}
+
+export function useEingineerProfileInfoUpdate(
+    token: string,
+    onSuccessCallback?: () => void
+) {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: (payload: FormData) => updateProfileInfo(token, payload),
+        onSuccess: () => {
+            toast.success('Profile updated successfully')
+            queryClient.invalidateQueries({ queryKey: ['me'] })
+            onSuccessCallback?.()
+        },
+        onError: (error: unknown) => {
+            const msg =
+                error instanceof Error ? error.message : 'Update failed'
+            toast.error(msg)
+        },
+    })
 }
 
 export function useProfileAvatarUpdate(token: string, onSuccessCallback?: () => void) {

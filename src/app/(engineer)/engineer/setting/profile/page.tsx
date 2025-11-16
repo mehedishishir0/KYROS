@@ -12,6 +12,7 @@ const Page = () => {
           gap-6 
           w-full           
           mx-auto 
+          
           transition-all 
           duration-300 
           items-stretch

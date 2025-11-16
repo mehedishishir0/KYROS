@@ -27,6 +27,7 @@ export function Navbar() {
   const session = useSession()
   const pathname = usePathname()
   const role = (session.data?.user as { role: string })?.role;
+  console.log("Role:", role);
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
