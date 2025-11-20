@@ -1,10 +1,10 @@
 import React from "react";
-import CategoryButton from "./_components/category-button";
+import AllProjects from "./_components/all-projects";
 
 const page = () => {
   return (
     <div>
-      <CategoryButton />
+      <AllProjects />
     </div>
   );
 };
