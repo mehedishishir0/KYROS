@@ -8,9 +8,14 @@ const page = () => {
     <div>
       <States />
 
-      <div className="mt-8">
-        <ActiveProjects />
-        <RecentRequests />
+      <div className="mt-8 flex flex-col lg:flex-row gap-8 w-full">
+        <div className="lg:w-1/2">
+          <ActiveProjects />
+        </div>
+        
+        <div className="lg:w-1/2">
+          <RecentRequests />
+        </div>
       </div>
     </div>
   );

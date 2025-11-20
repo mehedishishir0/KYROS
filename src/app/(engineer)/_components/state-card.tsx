@@ -15,7 +15,7 @@ const StateCard = ({
     <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex items-center justify-between h-[122px]">
       <div>
         <h4 className="text-sm text-gray-500">{title}</h4>
-        <h1 className="font-bold text-3xl">{value}</h1>
+        <h4 className="font-medium text-2xl mt-2">{value}</h4>
       </div>
 
       <div>
