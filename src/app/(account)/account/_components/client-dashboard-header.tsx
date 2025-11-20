@@ -21,7 +21,7 @@ export interface DashboardOverviewResponse {
 }
 
 const ClientDashboardHeader = () => {
-  let content;
+  
   const session = useSession();
   const token = (session?.data?.user as { accessToken: string })?.accessToken;
 
@@ -43,6 +43,8 @@ const ClientDashboardHeader = () => {
       },
       enabled: !!token,
     });
+
+    let content;
 
   if (isLoading) {
     content = (
