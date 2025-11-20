@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Eye } from "lucide-react";
-import DetailsProjectModal from "./details-project-modal";
+import DetailsProjectModal from "./_components/details-project-modal";
 import { useState } from "react";
 
 const Page = () => {
