@@ -1,9 +1,8 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import React from "react";
-import CategoryButton from "./category-button";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Project } from "../../project-management/_components/projects-table";
 import { useQuery } from "@tanstack/react-query";
@@ -12,27 +11,36 @@ interface SessionUser {
   accessToken: string;
 }
 
+const items = [
+  { label: "All", status: "" },
+  { label: "Awaiting Approval", status: "pending" },
+  { label: "Assigned", status: "in_progress" },
+  { label: "Rejected", status: "cancelled" },
+];
+
 const AllProjects = () => {
   const { data: session, status: sessionStatus } = useSession();
   const token = (session?.user as SessionUser)?.accessToken;
+  const [activeCategory, setActiveCategory] = useState("");
 
   const {
     data: activeProjects = [],
     isLoading,
     isFetching,
   } = useQuery<Project[]>({
-    queryKey: ["active-project", token],
+    queryKey: ["active-project", token, activeCategory],
     queryFn: async (): Promise<Project[]> => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const api = activeCategory
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my?status=${activeCategory}`
+        : `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my`;
+
+      const res = await fetch(api, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!res.ok) {
         throw new Error("Failed to fetch projects");
@@ -92,7 +100,6 @@ const AllProjects = () => {
   };
 
   const calculateHourlyRate = (totalPaid: number, totalTimeline: number) => {
-    // Assuming 8 hours per day, 5 days per week
     const totalHours = (totalTimeline / 7) * 5 * 8;
     const hourlyRate = totalPaid / totalHours;
     return Math.round(hourlyRate);
@@ -148,8 +155,16 @@ const AllProjects = () => {
 
   return (
     <div>
-      <div>
-        <CategoryButton />
+      <div className="flex items-center gap-4">
+        {items.map((item, index) => (
+          <button
+            key={index}
+            className="bg-primary/10 text-gray-600 text-sm font-medium px-5 py-2 rounded-lg"
+            onClick={() => setActiveCategory(item.status)}
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
       <div className="mt-8 space-y-6">
