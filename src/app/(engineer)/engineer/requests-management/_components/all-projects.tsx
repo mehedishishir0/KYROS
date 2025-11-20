@@ -156,15 +156,27 @@ const AllProjects = () => {
   return (
     <div>
       <div className="flex items-center gap-4">
-        {items.map((item, index) => (
-          <button
-            key={index}
-            className="bg-primary/10 text-gray-600 text-sm font-medium px-5 py-2 rounded-lg"
-            onClick={() => setActiveCategory(item.status)}
-          >
-            {item.label}
-          </button>
-        ))}
+        {items.map((item, index) => {
+          const isActive = activeCategory === item.status;
+
+          return (
+            <button
+              key={index}
+              onClick={() => setActiveCategory(item.status)}
+              className={`
+            text-sm font-medium px-5 py-2 rounded-lg
+            transition-all
+            ${
+              isActive
+                ? "bg-primary text-white shadow"
+                : "bg-primary/10 text-gray-600"
+            }
+          `}
+            >
+              {item.label}
+            </button>
+          );
+        })}
       </div>
 
       <div className="mt-8 space-y-6">
