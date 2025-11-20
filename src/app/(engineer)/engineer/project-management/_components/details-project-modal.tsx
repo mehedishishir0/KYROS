@@ -68,9 +68,9 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
         className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
       ></div>
 
-      <div className="relative bg-white rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 max-h-[90vh] overflow-y-auto p-8">
+      <div className="relative bg-white rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 max-h-[90vh] overflow-y-auto p-8 scrollbar-hide">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Project Details</h1>
+          <h4 className="text-2xl font-medium text-gray-800">Project Details</h4>
           <button
             onClick={() => onClose(false)}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -83,7 +83,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
           {/* Project Basic Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Project Name
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -92,7 +92,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Status
               </h2>
               <div className="flex items-center">
@@ -103,7 +103,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
 
           {/* Description */}
           <div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            <h2 className="text-lg font-medium text-gray-700 mb-2">
               Description
             </h2>
             <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -113,7 +113,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
 
           {/* Client Information */}
           <div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            <h2 className="text-lg font-medium text-gray-700 mb-2">
               Client Information
             </h2>
             <div className="bg-gray-50 p-4 rounded-lg">
@@ -140,7 +140,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
           {/* Project Timeline */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Start Date
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -149,7 +149,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Delivery Date
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -158,7 +158,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Days Remaining
               </h2>
               <p
@@ -182,7 +182,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
           {/* Financial Information */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Total Budget
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -191,7 +191,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Used Amount
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -200,7 +200,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Remaining Budget
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -211,7 +211,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
 
           {/* Progress */}
           <div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            <h2 className="text-lg font-medium text-gray-700 mb-2">
               Progress
             </h2>
             <div className="bg-gray-50 p-4 rounded-lg">
@@ -234,7 +234,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
 
           {/* Team Information */}
           <div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            <h2 className="text-lg font-medium text-gray-700 mb-2">
               Assigned Engineers ({project?.approvedEngineers?.length})
             </h2>
             <div className="bg-gray-50 p-4 rounded-lg space-y-3">
@@ -275,7 +275,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
           {/* Project Metadata */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Total Timeline
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -284,7 +284,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 Last Updated
               </h2>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -296,7 +296,7 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
           {/* NDA Agreement */}
           {project?.ndaAgreement && project.ndaAgreement.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              <h2 className="text-lg font-medium text-gray-700 mb-2">
                 NDA Agreements
               </h2>
               <div className="bg-gray-50 p-4 rounded-lg">
