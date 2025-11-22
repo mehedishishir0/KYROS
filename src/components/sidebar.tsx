@@ -15,11 +15,11 @@ import {
   BookAudio,
   Users,
   CreditCard,
-  Loader2,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface DashboardSidebarProps {
   isCollapsed: boolean;
@@ -97,14 +97,9 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
   if (isLoading) {
     return (
       <>
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle Skeleton */}
         <div className="fixed top-4 left-4 z-50 flex items-center lg:hidden">
-          <button
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="p-2 rounded-md bg-[#00383B] text-white focus:outline-none"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+          <Skeleton className="h-9 w-9 rounded-md bg-muted" />
         </div>
 
         {/* Sidebar Loading Skeleton */}
@@ -115,8 +110,47 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
             "-translate-x-full lg:translate-x-0"
           )}
         >
-          <div className="flex-1 flex items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          {/* Logo Skeleton */}
+          <div className="p-4">
+            <Skeleton
+              className={cn(
+                "h-[80px] rounded-md bg-muted",
+                isCollapsed ? "w-12 mx-auto" : "w-48 mx-auto"
+              )}
+            />
+          </div>
+
+          {/* Navigation Items Skeleton */}
+          <nav className="flex-1 px-3 py-4 space-y-3">
+            {Array.from({ length: 7 }).map((_, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "flex items-center rounded-md transition-colors",
+                  isCollapsed ? "justify-center px-2" : "px-3"
+                )}
+              >
+                <Skeleton className="h-5 w-5 rounded-sm bg-muted shrink-0" />
+                {!isCollapsed && (
+                  <Skeleton className="ml-3 h-10 flex-1 bg-muted rounded-sm" />
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* Logout Button Skeleton */}
+          <div className={cn("m-4", isCollapsed ? "flex justify-center" : "")}>
+            <div
+              className={cn(
+                "flex items-center rounded-md",
+                isCollapsed ? "justify-center px-2" : "px-3"
+              )}
+            >
+              <Skeleton className="h-4 w-4 rounded-sm bg-muted" />
+              {!isCollapsed && (
+                <Skeleton className="ml-3 h-4 w-16 bg-muted rounded-sm" />
+              )}
+            </div>
           </div>
         </aside>
       </>
@@ -201,6 +235,7 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
             isCollapsed ? "justify-center" : ""
           )}
           type="button"
+          onClick={() => signOut({ callbackUrl: "/" })}
         >
           <LogOut className={cn("h-4 w-4", !isCollapsed ? "mr-3" : "")} />
           {!isCollapsed && "Logout"}
