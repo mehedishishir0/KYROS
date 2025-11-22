@@ -17,42 +17,11 @@ import {
   BookAudio,
   Users,
   CreditCard,
+  Loader2,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-
-const navigation = [
-  { name: "Client Dashboard", href: "/account", icon: LayoutPanelLeft },
-  { name: "My Team", href: "/account/my-team", icon: User2 },
-  { name: "Call Booking", href: "/account/call-booking", icon: PhoneCall },
-  { name: "Dashboard Overview", href: "/engineer", icon: LayoutPanelLeft },
-  {
-    name: "Project Management",
-    href: "/engineer/project-management",
-    icon: Folder,
-  },
-  {
-    name: "Requests Management",
-    href: "/engineer/requests-management",
-    icon: BookAudio,
-  },
-  {
-    name: "Manager",
-    href: "/engineer/manager",
-    icon: Users,
-  },
-  {
-    name: "Payment History",
-    href: "/engineer/settings/payment-history",
-    icon: CreditCard,
-  },
-  {
-    name: "Call Booking",
-    href: "/engineer/settings/call-booking",
-    icon: PhoneCall,
-  },
-  { name: "Settings", href: "/account/setting", icon: Settings },
-];
+import { useSession } from "next-auth/react";
 
 interface DashboardSidebarProps {
   isCollapsed: boolean;
@@ -65,6 +34,99 @@ export function DashboardSidebar({
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = React.useState(false);
+
+  const { data: session, status } = useSession();
+  const role = (session?.user as { role?: string } | undefined)?.role;
+  const isLoading = status === "loading";
+
+  const getNavigation = () => {
+    if (isLoading) {
+      return [];
+    }
+
+    const userRoutes = [
+      { name: "Client Dashboard", href: "/account", icon: LayoutPanelLeft },
+      { name: "My Team", href: "/account/my-team", icon: User2 },
+      { name: "Call Booking", href: "/account/call-booking", icon: PhoneCall },
+      { name: "Settings", href: "/account/setting", icon: Settings },
+    ];
+
+    const engineerRoutes = [
+      { name: "Dashboard Overview", href: "/engineer", icon: LayoutPanelLeft },
+      {
+        name: "Project Management",
+        href: "/engineer/project-management",
+        icon: Folder,
+      },
+      {
+        name: "Requests Management",
+        href: "/engineer/requests-management",
+        icon: BookAudio,
+      },
+      {
+        name: "Manager",
+        href: "/engineer/manager",
+        icon: Users,
+      },
+      {
+        name: "Payment History",
+        href: "/engineer/settings/payment-history",
+        icon: CreditCard,
+      },
+      {
+        name: "Call Booking",
+        href: "/engineer/settings/call-booking",
+        icon: PhoneCall,
+      },
+      { name: "Settings", href: "/engineer/settings", icon: Settings },
+    ];
+
+    // Default to user routes if role is not defined
+    if (!role) return userRoutes;
+
+    // Return routes based on role
+    switch (role) {
+      case "engineer":
+        return engineerRoutes;
+      case "user":
+      case "client":
+        return userRoutes;
+      default:
+        return userRoutes;
+    }
+  };
+
+  const navigation = getNavigation();
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <>
+        {/* Mobile Toggle */}
+        <div className="fixed top-4 left-4 z-50 flex items-center lg:hidden">
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="p-2 rounded-md bg-[#00383B] text-white focus:outline-none"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Sidebar Loading Skeleton */}
+        <aside
+          className={cn(
+            "fixed top-0 left-0 h-full bg-card border-r border-border transform transition-all duration-300 ease-in-out z-40 flex flex-col",
+            isCollapsed ? "w-[80px]" : "w-[260px] md:w-[300px] lg:w-[380px]",
+            "-translate-x-full lg:translate-x-0"
+          )}
+        >
+          <div className="flex-1 flex items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        </aside>
+      </>
+    );
+  }
 
   return (
     <>
@@ -94,7 +156,7 @@ export function DashboardSidebar({
         {/* Header */}
         <div
           className={cn(
-            "flex items-center justify-between px-4 py-4  border-border",
+            "flex items-center justify-between px-4 py-4 border-border",
             isCollapsed ? "justify-center" : ""
           )}
         >
@@ -133,6 +195,11 @@ export function DashboardSidebar({
             height={80}
             className="w-14 h-14 rounded-full object-cover"
           />
+          {!isCollapsed && role && (
+            <span className="mt-2 text-xs text-muted-foreground capitalize">
+              {role}
+            </span>
+          )}
         </div>
 
         {/* Navigation */}
