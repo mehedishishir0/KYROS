@@ -8,13 +8,9 @@ import { useSession } from "next-auth/react";
 export function TeamMember({
   member,
   projectId,
-  hasManager,
-  onMakeManager,
 }: {
   member: Engineer;
   projectId: string;
-  hasManager: boolean;
-  onMakeManager: (id: string) => void;
 }) {
   const session = useSession();
   const token = (session?.data?.user as { accessToken: string })?.accessToken;
@@ -32,13 +28,9 @@ export function TeamMember({
       });
       return await res.json();
     },
-    onSuccess: () => {
-      // Update local state after successful API call
-      onMakeManager(member._id);
-    },
   });
 
-  const handleClick = () => {
+  const handleManager = () => {
     mutate({ engineerId: member._id });
   };
 
@@ -62,10 +54,9 @@ export function TeamMember({
       {/* Manager Button */}
       <div>
         <button
-          onClick={handleClick}
-          disabled={hasManager && !member.ismanager} // disable other buttons if manager exists
+          onClick={handleManager}// disable other buttons if manager exists
           className={`text-xs font-medium py-1 px-2 rounded ${
-            member.ismanager
+            member?.ismanager
               ? "bg-[#D3F7F7] text-[#0C4545]"
               : "bg-[#D3F7F7] text-[#0C4545]"
           }`}

@@ -4,28 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TeamMember } from "./team-member";
 import { useState } from "react";
 import ScheduleTheMeetingModal from "./schedule-the-meeting-modal";
-import { Project, Engineer } from "./projects-data-type";
+import { Project } from "./projects-data-type";
 
 export function ProjectCard({ project }: { project: Project }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Local state for members
-  const [memberList, setMemberList] = useState<Engineer[]>(
-    project?.approvedEngineers || []
-  );
-
-  // Check if a manager already exists
-  const hasManager = memberList.some((member) => member.ismanager);
-
-  // Function to update manager locally after API success
-  const handleMakeManager = (id: string) => {
-    setMemberList((prev) =>
-      prev.map((member) => ({
-        ...member,
-        ismanager: member._id === id ? true : false,
-      }))
-    );
-  };
 
   return (
     <div>
@@ -42,13 +25,11 @@ export function ProjectCard({ project }: { project: Project }) {
         <CardContent className="flex flex-1 flex-col gap-6">
           {/* Team Members */}
           <div className="space-y-[2px]">
-            {memberList.map((member) => (
+            {project?.approvedEngineers?.map((member) => (
               <TeamMember
                 key={member._id}
                 member={member}
                 projectId={project._id}
-                hasManager={hasManager}
-                onMakeManager={handleMakeManager}
               />
             ))}
           </div>
