@@ -1,19 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import ServiceCard from "./ServiceCard";
 import { useQuery } from "@tanstack/react-query";
 import { ServiceApiResponse } from "./service-data-type";
 import DashboardCardsSkeleton from "@/app/(account)/account/_components/dashboard-header-skeleton";
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
 import NotFound from "@/components/shared/NotFound/NotFound";
+import ServicePagination from "./services-pagination";
 
 const ServiceContainer = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error, isError } = useQuery<ServiceApiResponse>({
-    queryKey: ["services-all"],
+    queryKey: ["services-all", currentPage],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&page=${currentPage}&limit=9`,
         {
           method: "GET",
           headers: {
@@ -54,7 +56,26 @@ const ServiceContainer = () => {
       </div>
     );
   }
-  return <div>{content}</div>;
+  return (
+    <div>
+      {content}
+
+      <div>
+        <div className="p-8">
+          {data && data?.meta && data?.meta?.page > 1 && (
+            <ServicePagination
+              page={currentPage}
+              limit={data?.meta?.limit || 9}
+              total={data?.meta?.total || 0}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+              }}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ServiceContainer;
