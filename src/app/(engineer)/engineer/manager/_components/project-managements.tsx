@@ -19,6 +19,7 @@ const ProjectManagements = () => {
   const { data: session, status: sessionStatus } = useSession();
   const token = (session?.user as SessionUser)?.accessToken;
   const [isOpen, setIsOpen] = useState(false);
+  const [projectId, setProjectId] = useState("");
 
   const {
     data: projectsData,
@@ -158,7 +159,10 @@ const ProjectManagements = () => {
                 <div className="mt-6">
                   <Button
                     className="w-full h-[45px]"
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => {
+                      setIsOpen(true);
+                      setProjectId(project?._id);
+                    }}
                   >
                     Arrange Meeting
                   </Button>
@@ -166,7 +170,8 @@ const ProjectManagements = () => {
                 {isOpen && (
                   <ArrangeMeetingModal
                     onClose={() => setIsOpen(false)}
-                    project={project}
+                    projectId={projectId}
+                    token={token}
                   />
                 )}
               </div>
