@@ -3,11 +3,14 @@ import Image from "next/image";
 import { UserItem } from "./service-data-type";
 import Link from "next/link";
 import { toast } from "sonner";
-import { useTeam } from "@/hooks/useTeam";
+import { useTeamStore } from "@/store/teamStore";
+
 
 export default function ServiceCard({ data }: { data: UserItem }) {
 
-  const { addMember, team } = useTeam();
+
+    const addMember = useTeamStore((state) => state.addMember);
+  const team = useTeamStore((state) => state.team);
 
   const handleAddToTeam = () => {
     if (!data?._id) return;

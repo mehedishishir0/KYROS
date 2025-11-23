@@ -16,7 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useTeam } from "@/hooks/useTeam";
+import { useTeamStore } from "@/store/teamStore";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,8 @@ export function Navbar() {
   const role = (session.data?.user as { role: string })?.role;
   console.log("Role:", role);
 
-  const { team, removeMember } = useTeam();
+  const team = useTeamStore((state) => state.team);
+  const removeMember = useTeamStore((state) => state.removeMember);
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -79,7 +80,7 @@ export function Navbar() {
                   <Heart className="w-6 h-6 text-[#147575]" />
                   {team.length > 0 && (
                     <span className="absolute -top-2 -right-2 bg-red-500 text-white w-5 h-5 text-xs flex items-center justify-center rounded-full">
-                      {team.length}
+                      {team.length} {/* auto updates instantly */}
                     </span>
                   )}
                 </div>
@@ -92,7 +93,7 @@ export function Navbar() {
                 <h4 className="font-semibold mb-3 text-center">My Team ({team.length})</h4>
 
                 {team.length === 0 && (
-                  <p className="text-sm text-gray-500 text-center">No members added yet.</p>
+                  <p className="text-sm font-medium text-gray-500 text-center">No members added yet.</p>
                 )}
 
                 {team.map((member) => (
