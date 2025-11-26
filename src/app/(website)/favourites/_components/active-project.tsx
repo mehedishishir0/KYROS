@@ -74,9 +74,9 @@ const ActiveProjects = () => {
               <div className="p-6">
                 {/* Header: Title + Engineers */}
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+                  <h2 className="text-lg font-semibold text-gray-900 line-clamp-2">
                     {item?.title || "Untitled Project"}
-                  </h3>
+                  </h2>
 
                   {/* Overlapping Avatars */}
                   <div className="flex -space-x-3">
@@ -178,7 +178,7 @@ const ActiveProjects = () => {
     <div>
       <div>
         <div>
-            <h3 className="text-3xl text-center pt-5">Active Projects</h3>
+            <h2 className="text-3xl text-center pt-5">Active Projects</h2>
         </div>
         {content}</div>
       <div className="p-2">
