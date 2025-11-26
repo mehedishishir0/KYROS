@@ -37,9 +37,9 @@ export default function FavouritesContainer() {
               <div className="w-32 h-32 mx-auto mb-8 bg-gray-100 rounded-full flex items-center justify-center">
                 <Heart className="w-16 h-16 text-gray-300" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-3">
                 No favourites yet
-              </h3>
+              </h2>
               <p className="text-gray-500 text-base max-w-md mx-auto">
                 Start adding engineers you’d love to work with again. They’ll appear here!
               </p>
@@ -75,9 +75,9 @@ export default function FavouritesContainer() {
 
                         {/* Info */}
                         <div>
-                          <h3 className="text-xl font-bold text-gray-900">
+                          <h2 className="text-xl font-bold text-gray-900">
                             {member.firstName} {member.lastName}
-                          </h3>
+                          </h2>
                           <p className="text-sm text-gray-500 mt-1">
                             <span className="font-medium text-gray-700">
                               ${member.rate}/hr
@@ -202,9 +202,9 @@ export default function FavouritesContainer() {
 //                 />
 
 //                 <div>
-//                   <h3 className="font-semibold text-lg">
+//                   <h2 className="font-semibold text-lg">
 //                     {member.firstName} {member.lastName}
-//                   </h3>
+//                   </h2>
 //                   <p className="text-sm text-gray-500">
 //                     Level: {member.level} | {member.rate}/hr
 //                   </p>

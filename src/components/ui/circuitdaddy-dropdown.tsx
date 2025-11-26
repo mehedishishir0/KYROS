@@ -23,7 +23,7 @@ const CircuitdaddyDropdown: React.FC<CircuitdaddyDropdownProps> = ({
 }) => {
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className="bg-[#147575] h-[60px] w-full rounded-full outline-none cursor-pointer placehlder:text-white">
+      <SelectTrigger className="bg-[#147575] text-white h-[60px] w-full rounded-full ring-0 outline-none cursor-pointer placehlder:text-white">
         <SelectValue placeholder={placeholder} className="placeholder:px-2 placeholder:text-white"/>
       </SelectTrigger>
       <SelectContent className="bg-white w-full h-auto ">
