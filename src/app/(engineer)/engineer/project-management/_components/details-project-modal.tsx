@@ -247,17 +247,17 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
                 >
                   <div className="flex items-center space-x-3">
                     <Image
-                      src={engineer.profileImage}
-                      alt={engineer.firstName}
+                      src={engineer?.profileImage}
+                      alt={engineer?.firstName}
                       width={1000}
                       height={1000}
                       className="w-10 h-10 rounded-full object-cover"
                     />
                     <div>
                       <p className="font-medium text-gray-800">
-                        {engineer.firstName} {engineer.lastName}
+                        {engineer?.firstName} {engineer?.lastName}
                       </p>
-                      <p className="text-sm text-gray-600">{engineer.email}</p>
+                      <p className="text-sm text-gray-600">{engineer?.email}</p>
                     </div>
                   </div>
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
