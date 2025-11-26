@@ -427,11 +427,11 @@ export function Navbar() {
                     <Link
                       href={
                         role === "engineer"
-                          ? "/engineer/settings/profile"
-                          : "/account/settings/profile"
+                          ? "/engineer"
+                          : "/account"
                       }
                     >
-                      Profile
+                      {role === "engineer" ? "Engineer Dashboard" : "User Dashboard"}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>

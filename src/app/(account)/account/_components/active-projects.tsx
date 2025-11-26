@@ -108,7 +108,7 @@ let content ;
                     {item?.approvedEngineers?.map((img) => {
                       return <Image
                         key={img?._id}
-                        src={img?.profileImage}
+                        src={img?.profileImage || "/images/no-user.jpeg"} 
                         alt={img?.firstName}
                         width={24}
                         height={24}
@@ -117,9 +117,7 @@ let content ;
                     })}
                   </div>
                 </div>
-                <p className="text-xs font-normal leading-[150%] text-[#68706A] py-2">
-                  {item?.description}
-                </p>
+                <p dangerouslySetInnerHTML={{__html:item?.description}} className="text-xs font-normal leading-[150%] text-[#68706A] py-2"/>
                 <div className="flex items-center gap-3">
                   <button className="bg-[#E6EBEB] text-[10px] text-[#00383B] font-normal leading-[150%] py-1 px-6 rounded-full">
                     {item?.status}
