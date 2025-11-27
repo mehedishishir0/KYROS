@@ -68,7 +68,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <CardContent className="flex flex-1 flex-col gap-6">
           {/* Team Members */}
-          <div className="space-y-[2px]">
+          <div className="space-y-[2px] h-[160px] overflow-scroll scrollbar-hide">
             {project?.approvedEngineers?.map((member) => (
               <TeamMember
                 key={member._id}

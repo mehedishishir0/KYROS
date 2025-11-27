@@ -67,7 +67,7 @@ export default function MyTeamContainer() {
 
   return (
     <main>
-      <div className="pb-8 md:pb-10 w-full flex items-center justify-end">
+      <div className="pb-8 md:pb-10 lg:pb-20 w-full flex items-center justify-end">
         <div className="w-full md:w-[200px]">
           <CircuitdaddyDropdown
             options={statusList}

@@ -132,7 +132,7 @@ const DeleteEngineerModal = ({
                 {data?.data?.project?.title}
               </h2>
               <p className="text-sm text-[#333333] mt-4">
-                Assigned Engineers Lists
+                Pending Engineers Lists
               </p>
             </div>
 
