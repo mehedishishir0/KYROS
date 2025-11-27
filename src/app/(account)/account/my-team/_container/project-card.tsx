@@ -58,10 +58,10 @@ export function ProjectCard({ project }: { project: Project }) {
     <div>
       <Card className="h-full md:h-[405px] relative flex flex-col overflow-hidden bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-[8px]">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base font-semibold text-[#343A40] leading-[150%]">
+          <CardTitle className="text-base md:text-lg font-semibold text-[#343A40] leading-[150%]">
             {project.title}
           </CardTitle>
-          <p className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
+          <p className="text-sm font-normal text-[#9A9EA2] leading-[150%] pt-1"
             dangerouslySetInnerHTML={{ __html: project.description }} />
 
         </CardHeader>
@@ -74,6 +74,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 key={member._id}
                 member={member}
                 projectId={project._id}
+
               />
             ))}
           </div>

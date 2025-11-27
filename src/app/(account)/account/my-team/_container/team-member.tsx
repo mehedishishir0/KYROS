@@ -83,6 +83,8 @@ export function TeamMember({
           {
             member?.isManager ? "Manager" : "Make Manager"
           }
+
+          
           
         </button>
       </div>

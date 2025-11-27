@@ -27,6 +27,7 @@ export interface Project {
   startDate: string;
   deliveryDate: string;
   usedAmount: number;
+  manager:boolean;
   lastUpdated: string;
   createdAt: string;
   updatedAt: string;
