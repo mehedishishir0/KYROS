@@ -6,7 +6,7 @@ import { CheckCircle2, Loader2 } from "lucide-react";
 import { useProfileAvatarUpdate, useProfileQuery } from "@/hooks/apiCalling";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -19,6 +19,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import BadgeSelect from "./badge-select";
+import Image from "next/image";
+import SideSettingSkeleton from "./SideSettingSkeleton";
 
 export function SideSetting() {
   const { data: session } = useSession();
@@ -29,6 +31,7 @@ export function SideSetting() {
   const router = useRouter();
   const [imageUrl, setImageUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const queryClient = useQueryClient();
 
   // Set existing profile image once data is loaded
   useEffect(() => {
@@ -57,21 +60,19 @@ export function SideSetting() {
   const { mutateAsync, isPending: levelupPending } = useMutation({
     mutationKey: ["level-up-request"],
     mutationFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/badge/request`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/lavel`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return await res.json();
     },
     onSuccess: (data) => {
       toast.success(data?.message);
+      queryClient.invalidateQueries({ queryKey: ["me"] });
     },
     onError: (error) => {
       toast.success(error?.message);
@@ -171,6 +172,10 @@ export function SideSetting() {
     });
   };
 
+  if (getProfile.isLoading) {
+    return <SideSettingSkeleton />;
+  }
+
   return (
     <Card className="w-full max-w-[408px] overflow-hidden border-0 shadow-lg">
       <div
@@ -224,6 +229,19 @@ export function SideSetting() {
           <p className="text-sm text-gray-500">{profileData?.role}</p>
         </div>
 
+        <div className="flex items-center justify-center gap-2 mb-6">
+          {profileData?.badge?.badge.map((item, index) => (
+            <Image
+              key={index}
+              src={item}
+              alt="img.png"
+              width={1000}
+              height={1000}
+              className="h-12 w-12 rounded-full"
+            />
+          ))}
+        </div>
+
         {/* Information List */}
         <div className="space-y-3">
           <InfoRow
@@ -245,6 +263,10 @@ export function SideSetting() {
                 : "-"
             }
           />
+
+          <div>
+            <h2>Label: {profileData?.level}</h2>
+          </div>
         </div>
 
         <div className="flex  gap-2">
@@ -268,7 +290,7 @@ export function SideSetting() {
 
           <div className="mt-5">
             <Button
-              disabled={levelupPending}
+              disabled={levelupPending || profileData?.lavelUpdateRequest}
               className="disabled:cursor-not-allowed"
               onClick={handleLevelUp}
             >
